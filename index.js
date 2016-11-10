@@ -8,8 +8,6 @@ var tokenQueue= redis.createClient();
 dataQueue.subscribe("data-received");
 tokenQueue.subscribe("token-received");
 
-
-token_received
 console.log('starting up');
 
 io.on('connection', function(socket){
