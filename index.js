@@ -4,7 +4,6 @@ var io = require('socket.io')();
 var dataQueue= redis.createClient();
 var tokenQueue= redis.createClient();
 
-
 dataQueue.subscribe("data-received");
 tokenQueue.subscribe("token-received");
 
@@ -32,5 +31,5 @@ io.on('connection', function(socket){
 
 });
 
-io.listen(9000);
+io.listen(8000);
 
