@@ -13,26 +13,14 @@ tokenQueue.subscribe("token-received");
 
 console.log('starting up');
 
-io.on('connection', function(socket){
+dataQueue.on("message", function(channel, message){
+	var info = JSON.parse(message);
+	io.emit('data-received', info);
+});
 
-  console.log("client connected");
-  socket.emit('welcome', { message: 'Welcome', id: socket.id });
-
-  socket.on('disconnect', function(){
-    console.log('client disconnected')
-    socket.disconnect();
-  });
-
-  dataQueue.on("message", function(channel, message){
-    var info = JSON.parse(message);
-    socket.emit('data-received', info);
-  });
-
-  tokenQueue.on("message", function(channel, message){
-    var info = JSON.parse(message);
-    socket.emit('token-received', info);
-  });
-
+tokenQueue.on("message", function(channel, message){
+	var info = JSON.parse(message);
+	io.emit('token-received', info);
 });
 
 io.listen(8000);
